@@ -1,75 +1,71 @@
 package com.java;
 
-import java.util.ArrayList;
-import java.util.List;
+//Example of a Car class composed of an Engine and Wheels
 
-class Author {
-    private String name;
-    private List<Book> booksWritten; // List of books written by the author
-
-    public Author(String name) {
-        this.name = name;
-        this.booksWritten = new ArrayList<>();
-    }
-
-    public void addBook(Book book) {
-        booksWritten.add(book);
-        book.setAuthor(this); // Set the author of the book to this author
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Book> getBooksWritten() {
-        return booksWritten;
-    }
+//Engine class
+class Engine {
+ private String type;
+ 
+ public Engine(String type) {
+     this.type = type;
+ }
+ 
+ public void start() {
+     System.out.println("Engine started");
+ }
+ 
+ // Other engine methods
 }
 
-class Book {
-    private String title;
-    private Author author;
-
-    public Book(String title) {
-        this.title = title;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
+//Wheels class
+class Wheels {
+ private int count;
+ 
+ public Wheels(int count) {
+     this.count = count;
+ }
+ 
+ public void rotate() {
+     System.out.println("Wheels rotating");
+ }
+ 
+ // Other wheels methods
 }
 
-public class Association {
-    public static void main(String[] args) {
-        Author author1 = new Author("ABC");
-        Author author2 = new Author("xyz");
-
-        Book book1 = new Book("Java Programming");
-        Book book2 = new Book("Python Programming");
-
-        // Establish the association between authors and books
-        author1.addBook(book1);
-        author2.addBook(book1); 
-        author2.addBook(book2);
-
-        
-        System.out.println(author1.getName() + " wrote the following books:");
-        for (Book book : author1.getBooksWritten()) {
-            System.out.println("- " + book.getTitle());
-        }
-
-        System.out.println(author2.getName() + " wrote the following books:");
-        for (Book book : author2.getBooksWritten()) {
-            System.out.println("- " + book.getTitle());
-        }
-    }
+//Car class composed of Engine and Wheels
+class Car {
+ private Engine engine;
+ private Wheels[] wheels; // A car typically has four wheels
+ 
+ public Car(String engineType) {
+     this.engine = new Engine(engineType);
+     this.wheels = new Wheels[4]; // Create an array of four wheels
+     for (int i = 0; i < 4; i++) {
+         this.wheels[i] = new Wheels(18); // 18-inch wheels for this example
+     }
+ }
+ 
+ public void startCar() {
+     engine.start();
+ }
+ 
+ public void drive() {
+     for (Wheels wheel : wheels) {
+         wheel.rotate();
+     }
+     System.out.println("Car is moving");
+ }
+ 
+ // Other car methods
 }
 
+public class Main {
+ public static void main(String[] args) {
+     // Create a car with a specific engine type
+     Car myCar = new Car("V8");
+     
+     // Start the car and make it move
+     myCar.startCar();
+     myCar.drive();
+ }
+}
